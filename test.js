@@ -1,4 +1,4 @@
-'use strong';
+'use strict';
 
 const ghRateLimit = require('.');
 const test = require('tape');
