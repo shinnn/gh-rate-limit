@@ -8,6 +8,10 @@ const ghGet = require('gh-get');
 
 const USER_AGENT = 'https://github.com/shinnn/gh-rate-limit';
 
+function extractNonDeprecatedProperties(response) {
+  return response.body.resources;
+}
+
 module.exports = function ghRateLimit(options) {
   if (options) {
     options.headers = Object.assign({'user-agent': USER_AGENT}, options.headers);
@@ -19,7 +23,5 @@ module.exports = function ghRateLimit(options) {
     };
   }
 
-  return ghGet('rate_limit', options).then(function extractNecessaryProperties(response) {
-    return response.body.resources;
-  });
+  return ghGet('rate_limit', options).then(extractNonDeprecatedProperties);
 };
